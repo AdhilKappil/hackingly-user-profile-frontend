@@ -2,17 +2,26 @@ import Banner from "../components/Banner"
 import { FaGithub } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { FaFacebookSquare } from "react-icons/fa";
+import { useState } from "react";
+import ProfileTabs from "../components/ProfileTabs";
+import About from "../components/About";
 
 
 
 function Home() {
+  const [selectedTab, setSelectedTab] = useState("about")
+  const handleTabSelect = (tab)=>{
+    setSelectedTab(tab)
+  }
   return (
     <div>
         <div className="flex justify-center">
-            <div className="w-3/4 shadow-lg mt-10">
+          <div className="flex w-3/4 mt-10 gap-10"> 
+           <div className="w-3/4">
+           <div className="shadow-lg">
             <Banner/>
             <div className="flex justify-between">
-              <div className="mt-28 mb-10">
+              <div className="mt-16 mb-10">
                <div>
                  <p className="font-semibold ml-5 text-2xl">Adhil Ali</p>
                </div>
@@ -34,7 +43,20 @@ function Home() {
                 <div></div>
               </div>
             </div>
+             <div className="">
+               <ProfileTabs selectedTab={selectedTab} handleTabSelect={handleTabSelect}/>
+             </div>
+             <div>
+              {selectedTab === "about" ? <About/> 
+              :
+              } 
+             </div>
             </div>
+           </div>
+           <div className="bg-black h-96 w-64">
+            hhg
+           </div>
+          </div>
         </div>
     </div>
   )
