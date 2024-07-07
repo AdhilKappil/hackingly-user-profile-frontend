@@ -6,6 +6,8 @@ import { useState } from "react";
 import ProfileTabs from "../components/ProfileTabs";
 import About from "../components/About";
 import Projects from "../components/Projects";
+import Experience from "../components/Experience";
+import Achievements from "../components/Achievements";
 
 
 
@@ -50,6 +52,8 @@ function Home() {
              <div>
               {selectedTab === "about" ? <About/> 
               : selectedTab === "project" ? <Projects/>
+              : selectedTab === "experience" ? <Experience/>
+              : selectedTab === "achievments" ? <Achievements/>
               :""} 
              </div>
             </div>
