@@ -49,7 +49,7 @@ function Home() {
              <div>
               {selectedTab === "about" ? <About/> 
               :
-              } 
+              ""} 
              </div>
             </div>
            </div>
