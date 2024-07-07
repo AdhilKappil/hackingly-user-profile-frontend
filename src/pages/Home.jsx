@@ -5,6 +5,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { useState } from "react";
 import ProfileTabs from "../components/ProfileTabs";
 import About from "../components/About";
+import Projects from "../components/Projects";
 
 
 
@@ -48,8 +49,8 @@ function Home() {
              </div>
              <div>
               {selectedTab === "about" ? <About/> 
-              :
-              ""} 
+              : selectedTab === "project" ? <Projects/>
+              :""} 
              </div>
             </div>
            </div>
