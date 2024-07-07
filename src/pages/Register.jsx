@@ -1,7 +1,38 @@
 import { useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { validationSchema } from "../validation/validation";
+import { useDispatch } from "react-redux";
+import { setCredential } from "../slices/authSlice";
 
 function Register() {
     const navigate = useNavigate()
+    const [register] = useRegisterMutation();
+    const dispatch = useDispatch();
+    const initialValues = {
+        name: "",
+        password: "",
+        cpassword: "",
+        email: "",
+      };
+    
+      const { values, handleChange, handleSubmit, errors, touched } = useFormik({
+        initialValues: initialValues,
+        validationSchema: validationSchema,
+        onSubmit: async (values) => {
+          try {
+            const { name, email,password} = values; // Destructure values
+            const res = await register({ name, email,password }).unwrap();
+            dispatch(setCredential({ ...res }));
+            navigate("/home");
+            toast.success('Successfully Registerd')
+          } catch (err) {
+            toast.error(err?.data?.message || err.error);
+          }
+        },
+      });
+
     return (
       <div>
         <div className="flex w-screen flex-wrap text-slate-800">
@@ -18,46 +49,66 @@ function Register() {
                 Register your account below.
               </p>
   
-              <form className="flex flex-col items-stretch pt-3 md:pt-8">
+              <form className="flex flex-col items-stretch pt-3 md:pt-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col pt-4">
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
+                      value={values.name}
+                      onChange={handleChange}
                       name="name"
                       placeholder="Name"
                       type="name"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
+                  {errors.name && touched.name && (
+                    <div className="text-red-500">{errors.name}</div>
+                  )}
                 </div>
                 <div className="flex flex-col pt-4">
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
+                      value={values.email}
+                      onChange={handleChange}
                       name="email"
                       placeholder="Email"
                       type="email"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
+                  {errors.email && touched.email && (
+                    <div className="text-red-500">{errors.email}</div>
+                  )}
                 </div>
                 <div className="flex flex-col pt-4">
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
+                    value={values.password}
+                    onChange={handleChange}
                       name="password"
                       placeholder="Password"
                       type="password"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
+                  {errors.password && touched.password && (
+                    <div className="text-red-500">{errors.password}</div>
+                  )}
                 </div>
                 <div className="flex flex-col pt-4">
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
+                      value={values.cpassword}
+                      onChange={handleChange}
                       name="cpassword"
                       placeholder="Confirm Password"
-                      type="cpassword"
+                      type="password"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
+                  {errors.cpassword && touched.cpassword && (
+                    <div className="text-red-500">{errors.cpassword}</div>
+                  )}
                 </div>
   
                 <button
