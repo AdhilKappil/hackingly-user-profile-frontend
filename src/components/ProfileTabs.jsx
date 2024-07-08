@@ -3,11 +3,11 @@ import React from 'react';
 const ProfileTabs = ({ selectedTab, handleTabSelect }) => {
     return (
         <div className="w-full flex justify-center border-b-[2px]">
-            <ul className="flex justify-between font-semibold text-[16px] w-full px-5 md:px-16 py-1">
+            <ul className="flex justify-between font-semibold max-sm:text-sm text-[16px] w-full px-5 md:px-16 py-1">
                 <li>
                     <a
                         href="#"
-                        className={`${selectedTab === "about" ? "border-b-[5px] border-[#E8C68F]" : ""} cursor-pointer`}
+                        className={`${selectedTab === "about" ? "border-b-[5px] border-blue-400" : ""} cursor-pointer`}
                         onClick={(e) => handleTabSelect("about", e)}
                     >
                         About
@@ -16,7 +16,7 @@ const ProfileTabs = ({ selectedTab, handleTabSelect }) => {
                 <li>
                     <a
                         href="#"
-                        className={`${selectedTab === "project" ? "border-b-[5px] border-[#E8C68F]" : ""} cursor-pointer`}
+                        className={`${selectedTab === "project" ? "border-b-[5px] border-blue-400" : ""} cursor-pointer`}
                         onClick={(e) => handleTabSelect("project", e)}
                     >
                         Project
@@ -25,7 +25,7 @@ const ProfileTabs = ({ selectedTab, handleTabSelect }) => {
                 <li>
                     <a
                         href="#"
-                        className={`${selectedTab === "experience" ? "border-b-[5px] border-[#E8C68F]" : ""} cursor-pointer`}
+                        className={`${selectedTab === "experience" ? "border-b-[5px] border-blue-400" : ""} cursor-pointer`}
                         onClick={(e) => handleTabSelect("experience", e)}
                     >
                         Experience 
@@ -34,7 +34,7 @@ const ProfileTabs = ({ selectedTab, handleTabSelect }) => {
                 <li>
                     <a
                         href="#"
-                        className={`${selectedTab === "achievments" ? "border-b-[5px] border-[#E8C68F]" : ""} cursor-pointer`}
+                        className={`${selectedTab === "achievments" ? "border-b-[5px] border-blue-400" : ""} cursor-pointer`}
                         onClick={(e) => handleTabSelect("achievments", e)}
                     >
                         Achievements

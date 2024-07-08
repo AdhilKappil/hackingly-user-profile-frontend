@@ -4,9 +4,11 @@ import { storage } from '../app/firebase';
 import { toast } from "react-toastify";
 import Spinner from './Spinnet'; 
 import { useDispatch, useSelector } from "react-redux";
-import { setCredential } from '../slices/authSlice';
+import { logOut, setCredential } from '../slices/authSlice';
 import { useSetProfileMutation } from '../slices/userApiSlice';
 import { MdEdit, MdFileUpload } from "react-icons/md";
+import { CiLogin } from "react-icons/ci";
+
 
 const Banner = () => {
   // Redux state to get user information
@@ -107,6 +109,15 @@ const Banner = () => {
     }
   };
 
+  const logoutHandler = async () => {
+    try {
+      dispatch(logOut());
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="h-48 bg-black relative rounded-t-lg">
       <img className="w-full object-cover h-48 rounded-t-lg relative"
@@ -120,6 +131,9 @@ const Banner = () => {
         <MdEdit size={18} color='blue'/>
        </button>
        }
+       <button onClick={logoutHandler} className='absolute right-5 border-[2px] rounded-full p-2 mt-5'>
+        <CiLogin size={18} color='red'/>
+       </button>
       <div className="rounded-full absolute bottom-[-25%] left-10">
         <img
           className="border-[5px] border-white rounded-full h-44 w-44 object-cover cursor-pointer"

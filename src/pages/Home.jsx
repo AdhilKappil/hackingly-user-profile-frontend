@@ -20,12 +20,12 @@ function Home() {
   return (
     <div>
       <div className="flex justify-center">
-        <div className="flex w-3/4 mt-10 gap-10">
-          <div className="w-3/4">
-            <div className="shadow-lg">
+        <div className="flex flex-col lg:flex-row xl:w-4/5 lg:w-[90%] lg:mt-10 gap-10 p-3">
+          <div className="lg:w-4/5 ">
+            <div className="shadow-md rounded-lg">
               <Banner />
-              <div className="flex justify-between">
-                <div className="mt-16 mb-10">
+              <div className="max-sm:flex-col flex justify-between">
+                <div className="mt-16 sm:mb-10 mb-5">
                   <div>
                     <p className="font-semibold ml-5 text-2xl font-Sans">
                       {userInfo.name}
@@ -35,7 +35,7 @@ function Home() {
                     </p>
                   </div>
                 </div>
-                <div className="mt-16 pr-20">
+                <div className="sm:mt-16 pr-20 max-sm:ml-5 max-sm:mb-5">
                   <div className="flex gap-5">
                     <div className="">
                       <img
@@ -65,7 +65,7 @@ function Home() {
                   handleTabSelect={handleTabSelect}
                 />
               </div>
-              <div>
+              <div className="rounded-b-lg">
                 {selectedTab === "about" ? (
                   <About />
                 ) : selectedTab === "project" ? (
