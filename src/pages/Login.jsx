@@ -1,7 +1,44 @@
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { loginValidation } from "../validation/validation";
+import { toast } from "react-toastify";
+import { setCredential } from "../slices/authSlice";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate()
+    const [login] = useLoginMutation();
+    const dispatch = useDispatch();
+    const { userInfo } = useSelector((state) => state.auth);
+
+    useEffect(()=>{
+      if(userInfo){
+          navigate('/home')
+      }
+  },[navigate, userInfo])
+
+    const initialValues = {
+      password: "",
+      email: "",
+    };
+  const { values, handleChange, handleSubmit, errors, touched } = useFormik({
+    initialValues: initialValues,
+    validationSchema: loginValidation,
+
+    onSubmit: async (values) => {
+      try {
+        const {email,password} = values; // Destructure values
+        const res = await login({ email,password }).unwrap();
+        dispatch(setCredential({ ...res }));
+        navigate("/home");
+        toast.success('Successfully Login')
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    },
+  });
   return (
     <div>
       <div className="flex w-screen flex-wrap text-slate-800">
@@ -18,20 +55,27 @@ function Login() {
               Sign in to your account below.
             </p>
 
-            <form className="flex flex-col items-stretch pt-3 md:pt-8">
+            <form className="flex flex-col items-stretch pt-3 md:pt-8" onSubmit={handleSubmit}>
               <div className="flex flex-col pt-4">
                 <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                   <input
+                  value={values.email}
+                  onChange={handleChange}
                     name="email"
                     placeholder="Email"
                     type="email"
                     className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                   />
                 </div>
+                {errors.email && touched.email && (
+                    <div className="text-red-500">{errors.email}</div>
+                  )}
               </div>
               <div className="mb-4 flex flex-col pt-4">
                 <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                   <input
+                   value={values.password}
+                   onChange={handleChange}
                     name="password"
                     type="password"
                     id="login-password"
@@ -39,6 +83,9 @@ function Login() {
                     placeholder="Password"
                   />
                 </div>
+                {errors.password && touched.password && (
+                    <div className="text-red-500">{errors.password}</div>
+                  )}
               </div>
 
               <button

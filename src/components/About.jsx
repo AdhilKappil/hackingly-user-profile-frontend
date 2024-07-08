@@ -11,8 +11,8 @@ function About() {
         </p>
       </div>
       <div>
-        <p className="font-semibold text-xl mt-5">Education</p>
-        <p className="text-sm font-medium mt-2">University of Calicut</p>
+        <p className="font-semibold text-xl mt-5 font-Sans">Education</p>
+        <p className="text-sm font-medium mt-2 font-Sans">University of Calicut</p>
         <p className="text-sm">Bachelor of Commerce - BCom, Computer Programming</p>
          <p className="text-sm">2018 - 2021</p>   
       </div>

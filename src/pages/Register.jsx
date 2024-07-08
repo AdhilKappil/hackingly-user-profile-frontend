@@ -3,13 +3,23 @@ import { useRegisterMutation } from "../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { validationSchema } from "../validation/validation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredential } from "../slices/authSlice";
+import { useEffect } from "react";
 
 function Register() {
     const navigate = useNavigate()
     const [register] = useRegisterMutation();
     const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    useEffect(()=>{
+      if(userInfo){
+          navigate('/home')
+      }
+  },[navigate, userInfo])
+
     const initialValues = {
         name: "",
         password: "",
