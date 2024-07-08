@@ -4,6 +4,8 @@ const USER_URL = `/api`
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+
+        // user login
         login: builder.mutation({
             query: (data)=>({
                 url: `${USER_URL}/login`,
@@ -12,6 +14,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }),
 
+          // user register
         register: builder.mutation({
             query: (data) => ({
               url: `${USER_URL}/register`,
@@ -20,6 +23,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
           }),
 
+            // user profile and banner image update
           setProfile: builder.mutation({
             query: (data) => ({
               url: `${USER_URL}/addProfile`,
